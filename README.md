@@ -38,8 +38,6 @@ Please refer to the provided [ER Diagram](ER-diagram.drawio.pdf) for a visual re
 
 Detailed information about the entities, their attributes, and relationships can be found in the provided document. Some of the main entities include Player, Club, Team, League, Staff, Manager, and Stadium, among others.
 
----
-
 ## Running the Application
 
 - Build backend development server container
@@ -57,7 +55,6 @@ Please, make sure docker is running before attempting this. To stop the stack co
 
 When the docker container is running, your changes will not be visible on the application unless you rebuild the container (see command from earlier above). We will set up automatic file-watching later to eliminate this repetitive building of the container.
 
-
 ### PGadmin
 
 PGadmin allows for seeing the data live as we perform operations on the app.
@@ -73,3 +70,4 @@ Connecting Database: Once signed in, you need to connect our database.
 Viewing Table:
    - Servers -> Databases -> soccer_sleuth-db -> Schemas -> public -> Tables
    - Right click on table you want to view -> View Data
+---
