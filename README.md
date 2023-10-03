@@ -40,7 +40,7 @@ Detailed information about the entities, their attributes, and relationships can
 
 ---
 
-### Running the Application
+## Running the Application
 
 - Build backend development server container
 `cd backend`
