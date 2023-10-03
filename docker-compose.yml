@@ -1,0 +1,82 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:14.1-alpine
+    container_name: soccer-sleuth-db
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+    volumes: 
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres_data:/var/lib/postgresql/data/
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org
+      - PGADMIN_DEFAULT_PASSWORD=admin
+      - PGADMIN_CONFIG_CHECK_EMAIL_DELIVERABILITY=False
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
+
+  backend:
+    container_name: soccer-sleuth-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+     
+    image: soccer-sleuth-backend
+    depends_on:
+      - db
+    ports:
+      - 8080:8080
+    environment:
+      NODE_ENV: development
+      # DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_NAME: ${POSTGRES_DB}
+    links:
+      - db
+    volumes:
+      - './:/src'
+  frontend:
+    container_name: soccer-sleuth-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+      
+    image: soccer-sleuth-frontend
+    ports:
+      - 3000:3000
+    # networks:
+    #   - app-network
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - backend
+  #Nginx Service
+  webserver:
+    image: nginx:alpine
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+    depends_on:
+       - backend
+       - frontend
+volumes:
+  postgres_data:
+  pgadmin-data:
+#Docker Networks
+# networks:
+#   app-network:
+#     driver: bridge
