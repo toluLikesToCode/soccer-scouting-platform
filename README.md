@@ -1,60 +1,44 @@
-# Development of a SoccerSleuth: a Scouting Platform
+---
 
-## Contribution guidelines
+# Soccer Scouting Platform
 
-### SSH verification and Configuration
+## Project Description
 
-Before we can clone the repository, we need to make sure that we have configured SSH communication between our machines and our UBC github account (not our personal accounts)
+The intent of this project was to gain an understanding of the process of building a full database application.
 
-------------------
->
->**_NOTE_**: The following commands are for MAC devices. If you are using a windows device, you may need to do some research on how to do these steps on your machine.
--------------------
+### Domain of the Application:
+The domain of this application is a soccer scouting platform. This platform is designed to focus on the data that measures the performance of players and assists clubs in making informed decisions regarding player recruitment.
 
-1. Check if you already have an SSH key
- Open a terminal window and run the command `ls -al ~/.ssh`.
+### Aspects of the Domain Modeled by the Database:
+The database models active soccer players. Each player is characterized by:
+- Generic physical stats such as height, weight, preferred foot, etc.
+- Game-specific stats such as km run, pass completion rate, tackle success, and more.
 
-   A.  If a compatible SSH key exists, it will be one of the following:
+## Database Specifications:
 
-<https://github.students.cs.ubc.ca/CPSC304-2023S-T2/project_p9c3b_u5y3d_x5w6i.git>
+### Benefits:
+Our application serves as a comprehensive information bank for football scouts. The database is pivotal to its functionality, ensuring secure storage of relevant statistics and efficient data access management.
 
-- id_rsa.pub
-- id_ecdsa.pub
-- id_ed25519.pub
-   If an SSH  key exists, display it by running `cat ~/.ssh/id_rsa.pub` (id_rsa can be replaced with any of the above three if it's not available)
-   Once displayed, copy the SSH key and go to [this link](https://github.students.cs.ubc.ca/settings/keys) .
+### Functionality:
+The database offers the following functionalities:
+- Allows football scouts to access player and team statistics.
+- Provides rankings of players based on position and league.
+- Supports two user classes: data collectors (who input new game information) and scouts (who analyze the data to assess player quality and ability).
+- Enables statistical analysis of player performance using various filters, such as performance against specific teams, home vs. away games, and game day weather conditions.
 
-   Press "New SSH key" green button on the right.
-   Paste the copied SSH key in the bottom text field and give it a name in the top field.
+## Application Platform:
 
-   Save (by press "Add SSH key")
-   Next set up SSH connect your local agent to github with the command
+The project utilizes Reactjs for building the user interface. This interface communicates with a Postgresql DBMS via an Expressjs RESTful API.
 
-   ```bash
-    eval "$(ssh-agent -s)"
+## ER Diagram:
 
-ssh-add ~/.ssh/id_rsa
+Please refer to the provided [ER Diagram](ER-diagram.drawio.pdf) for a visual representation of the database structure. Our drawing software uses a color (red on the diagram) to distinguish weak entity relationship keys from other keys.
 
-```
-Next, proceed to cloning
+## Entities & Relationships:
 
-   B.  If a valid SSH key does not exist, please head over to [this link](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) to generate one and add to your UBC github account as described above
+Detailed information about the entities, their attributes, and relationships can be found in the provided document. Some of the main entities include Player, Club, Team, League, Staff, Manager, and Stadium, among others.
 
-### Cloning
-
-- Navigate to the your desired working directory (`cd <folder-name>`)
-- Open a terminal window and run the following command
-
- ```bash
-  git clone https://github.students.cs.ubc.ca/CPSC304-2023S-T2/project_p9c3b_u5y3d_x5w6i.git
- ```
-
-You will need your cwl credentials to be able to clone the repo.
-Once cloned, add the remote origin by running the command below
-
-```bash
-git remote add origin https://github.students.cs.ubc.ca/CPSC304-2023S-T2/project_p9c3b_u5y3d_x5w6i.git
-```
+---
 
 ### Running the Application
 
